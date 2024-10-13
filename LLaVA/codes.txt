@@ -1,0 +1,1 @@
+python /workspace/multimodal/LLaVA/demo.py --model-path ./llava-v1.5-13b --image-folder /workspace/multimodal/data/multimodal --question-file /workspace/multimodal/data/multimodal/domain_train_chunk_7.json --top_p 0.7 --answers-file ./output/domain_train_better_chunk7.json
