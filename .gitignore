@@ -1,0 +1,9 @@
+*.pth
+*.pt
+*.zip
+*.png
+*.jpeg
+*.jpg
+*__pycache__*
+venv
+*python3.8*

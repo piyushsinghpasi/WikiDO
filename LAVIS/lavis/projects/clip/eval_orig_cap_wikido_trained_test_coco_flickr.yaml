@@ -1,0 +1,90 @@
+ # Copyright (c) 2022, salesforce.com, inc.
+ # All rights reserved.
+ # SPDX-License-Identifier: BSD-3-Clause
+ # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
+
+model:
+  arch: clip
+  model_type: "ViT-L-14-336"
+  load_pretrained: False
+  load_finetuned: True 
+
+  finetuned: "output/CLIP/Retrieval_wikido_correct_val/Midnight-CLIP-Original-Captions/checkpoint_best.pth"
+  # precision: amp
+  # image_size: 336
+  # vit_precision: "fp32"
+
+  # # finetune blip2 with clip-vit-large
+  # use_grad_checkpoint: True
+  # pretrained: "https://storage.googleapis.com/sfr-vision-language-research/LAVIS/models/BLIP2/blip2_pretrained_vitL.pth"
+  # vit_model: clip_L  
+
+datasets:
+  coco_retrieval: # name of the dataset builder
+    vis_processor:
+        train:
+          name: "clip_image_train"
+          image_size: 336
+        eval:
+          name: "clip_image_eval"
+          image_size: 336
+    text_processor:
+        train:
+          name: "blip_caption"
+        eval:
+          name: "blip_caption"
+
+    caption_type: "orig_cap"
+    build_info:
+      # Be careful not to append minus sign (-) before split to avoid itemizing
+      annotations:
+        train:
+          url: https://storage.googleapis.com/sfr-vision-language-research/datasets/coco_karpathy_train.json
+          md5: aa31ac474cf6250ebb81d18348a07ed8
+          storage: /workspace/multimodal/data/multimodal/correct_data/b_100k.json
+        val:
+          url: https://storage.googleapis.com/sfr-vision-language-research/datasets/coco_karpathy_val.json
+          md5: b273847456ef5580e33713b1f7de52a0
+          storage: /workspace/multimodal/data/multimodal/final_splits/coco_karpathy_test.json
+        test:
+          url: https://storage.googleapis.com/sfr-vision-language-research/datasets/coco_karpathy_test.json
+          md5: 3ff34b0ef2db02d01c37399f6a2a6cd1
+          storage: /workspace/multimodal/data/multimodal/final_splits/flickr30k_test.json
+      images:
+          storage: /workspace/multimodal/data/multimodal
+
+run:
+  task: retrieval
+  # optimizer
+  use_adam: True
+  lr_sched: "linear_warmup_cosine_lr"
+  init_lr: 1e-6
+  min_lr: 0
+  # warmup_lr: 1e-8
+  # warmup_steps: 1000
+  weight_decay: 0.001
+  beta2: 0.98
+  max_epoch: 6
+  batch_size_train: 64
+  batch_size_eval: 64
+  # lr_layer_decay: 0.95  # layer-wise learning rate decay for the ViT 
+  num_workers: 4
+  accum_grad_iters: 1
+
+  seed: 42
+  output_dir: "output/CLIP/Retrieval_wikido_correct_val/Midnight-CLIP-Original-Captions"
+
+  amp: True
+  resume_ckpt_path: null
+
+  evaluate: True
+  test_splits: ["val", "test"]
+  # valid_splits: ["val"]
+
+  run_name: "correct-val-Midnight-CLIP-Original-Captions"
+  device: "cuda"
+  world_size: 1
+  dist_url: "env://"
+  distributed: False
+  use_dist_eval_sampler: False
+  skip_reload:  False
