@@ -1,0 +1,50 @@
+image_root: '/workspace/multimodal/data/multimodal'
+ann_root: 'annotation'
+coco_gt_root: 'annotation/coco_gt'
+train_path: '/workspace/multimodal/data/multimodal/train_topic_smallest.json'
+val_path: '/workspace/multimodal/BLIP/train_5k.json'
+test_path: '/workspace/multimodal/data/multimodal/ood_test_small_topic.json'
+dataset: 'WIDOcodebook' #change to 'WIDOneg for negatives' or WIDOcodebook
+
+# set pretrained as a file path or an url
+#pretrained: 'https://storage.googleapis.com/sfr-vision-language-research/BLIP/models/model_base.pth'
+pretrained: '/workspace/multimodal/BLIP/pavan_exps/run2/checkpoint_best.pth'
+#pretrained: '/workspace/pavan/multimodal/BLIP/output_patch_token/local_global_exp1/checkpoint_best.pth'
+# pretrained: '/workspace/multimodal/BLIP/output/CLS_IID/checkpoint_best.pth'
+#pretrained: '/workspace/multimodal/BLIP/exp_outputs/softmax/Unfrozen/checkpoint_best.pth'
+#pretrained: '/workspace/multimodal/BLIP/exp_outputs/finetuned/ood_patch_16_phrase_with_temp_WO_lpft/checkpoint_best.pth'
+#pretrained: '/workspace/pavan/multimodal/BLIP/exp_outputs/domain_codebook_mom/checkpoint_best.pth'
+#pretrained: '/workspace/pavan/multimodal/BLIP/exp_outputs/baseline_smallest/checkpoint_best.pth'
+#pretrained: '/workspace/pavan/multimodal/BLIP/exp_outputs/separate_codebook/checkpoint_best.pth'
+#pretrained: '/workspace/pavan/multimodal/BLIP/exp_outputs/multimodal_codebooks/checkpoint_best.pth'
+#pretrained: '/workspace/pavan/multimodal/BLIP/exp_outputs/simple_codebooks/checkpoint_best.pth'
+# size of vit model; base or large
+#pretrained: '/workspace/pavan/multimodal/BLIP/exp_outputs/baseline_mmc_neg/checkpoint_best.pth'
+#pretrained: '/workspace/pavan/multimodal/BLIP/exp_outputs/correct_multimodal/checkpoint_best_5.pth'
+# pretrained: '/workspace/pavan/multimodal/BLIP/finegrained_exps/D2d_iid/checkpoint_best.pth'
+#pretrained: '/workspace/pavan/multimodal/BLIP/scaling_exp_output/self_modal_shared_attn_500k/checkpoint_best.pth'
+vit: 'base'
+batch_size_train: 128
+batch_size_test: 128
+vit_grad_ckpt: True
+vit_ckpt_layer: 4
+init_lr: 2e-5
+
+# vit: 'large'
+# batch_size_train: 16
+# batch_size_test: 32
+# vit_grad_ckpt: True
+# vit_ckpt_layer: 10
+# init_lr: 5e-6
+
+image_size: 256
+queue_size: 64
+alpha: 0.4
+k_test: 256
+negative_all_rank: False
+
+# optimizer
+weight_decay: 0.05
+min_lr: 0
+max_epoch: 60
+

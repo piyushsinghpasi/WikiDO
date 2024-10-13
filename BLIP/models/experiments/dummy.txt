@@ -1,0 +1,1 @@
+ CUDA_VISIBLE_DEVICES="5" WANDB_MODE=disabled python train_experiments.py --run_name l2-global-smoothing-sharedCodebooks-layer11-3AlignBlocks_frozen-update-x-cross-SwapAttnInps --config configs/retrieval_wido_negative.yaml --distributed False --output_dir experiments/l2-global-smoothing-sharedCodebooks-layer11-3AlignBlocks_frozen-update-x-cross-SwapAttnInps --evaluate

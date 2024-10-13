@@ -1,0 +1,49 @@
+image_root: '/workspace/pavan/multimodal/data/multimodal'
+ann_root: 'annotation'
+coco_gt_root: 'annotation/coco_gt'
+train_path: '/workspace/pavan/multimodal/data/multimodal/train_topic_smallest.json' # 100k
+val_path: '/workspace/pavan/multimodal/data/multimodal/val_small_topic.json'
+test_path: '/workspace/pavan/multimodal/data/multimodal/ood_test_small_topic.json'
+dataset: 'WIDOneg' #change to 'WIDOneg for negatives'
+
+# set pretrained as a file path or an url
+pretrained: 'https://storage.googleapis.com/sfr-vision-language-research/BLIP/models/model_base.pth'
+#pretrained: '/workspace/multimodal/BLIP/output_curriculum/epoch3/checkpoint_best.pth'
+#pretrained: '/workspace/multimodal/BLIP/exp_outputs/softmax/Unfrozen/checkpoint_best.pth'
+#pretrained: '/workspace/multimodal/BLIP/exp_outputs/finetuned/ood_patch_16_phrase_with_temp_WO_lpft/checkpoint_best.pth'
+# size of vit model; base or large
+
+
+output_dir: output_curriculum
+
+vit: 'base'
+batch_size_train: 16
+batch_size_test: 64
+vit_grad_ckpt: False
+vit_ckpt_layer: 4
+init_lr: 1e-5
+
+# vit: 'large'
+# batch_size_train: 16
+# batch_size_test: 32
+# vit_grad_ckpt: True
+# vit_ckpt_layer: 10
+# init_lr: 5e-6
+
+image_size: 256
+queue_size: 512
+alpha: 0.4
+k_test: 256
+negative_all_rank: False
+label_smoothing: 0.1
+
+# optimizer
+weight_decay: 0.05
+min_lr: 0
+max_epoch: 3
+
+epoch_threshold: 3 #for curriculum learning, trains only itc for passed no. of epochs (-100 disables it)
+num_negatives: 5
+sampling_type: "in_class" # diff_class
+
+
